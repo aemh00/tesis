@@ -99,15 +99,17 @@ def plot_light_curve(lc_dataframe, period=None, figsize=(5, 3)):
     fig, ax = plt.subplots(figsize=figsize, tight_layout=True)
     if not period is None: # Plot folded light curve
         phi = np.mod(mjd, period)/period
-        ax.errorbar(np.hstack((phi, phi+1)), np.hstack((mag, mag)),
+        ax.errorbar(np.hstack((phi, phi)), np.hstack((mag, mag)),
                     np.hstack((err, err)), fmt='.')
         ax.set_xlabel("Phase")
+        ax.set_title(lc_dataframe.index[0]+' '+str(period))
     else:  # Plot unfolded light curve
         ax.errorbar(mjd, mag, err, fmt='.')
         ax.set_xlabel("Time [MJD]")
+        ax.set_title(lc_dataframe.index[0])
     ax.invert_yaxis()
     ax.set_ylabel("Magnitude")
-    ax.set_title(lc_dataframe.index[0])    
+    #ax.set_title(lc_dataframe.index[0])    
                          
 
 def get_train_test_ids(metadata_dataframe, random_seed=0):
