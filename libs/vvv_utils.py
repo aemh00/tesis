@@ -112,13 +112,13 @@ def plot_light_curve(lc_dataframe, period=None, figsize=(5, 3)):
     #ax.set_title(lc_dataframe.index[0])    
                          
 
-def get_train_test_ids(metadata_dataframe, random_seed=0):
+def get_train_test_ids(metadata_dataframe,test_size=0.1,random_seed=0):
     """    
     Returns tuple with train and test indexes (pd.Index, pd.Index)
     """
     vvv_ids = metadata_dataframe.index
     vvv_labels = np.array(metadata_dataframe["label"].values)
-    sss = StratifiedShuffleSplit(n_splits=1, test_size=0.1, random_state=random_seed)
+    sss = StratifiedShuffleSplit(n_splits=1, test_size=test_size, random_state=random_seed)
     train_idx, test_idx = next(sss.split(vvv_ids, vvv_labels))
     return vvv_ids[train_idx], vvv_ids[test_idx]
 
